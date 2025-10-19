@@ -1,0 +1,25 @@
+-- Continuum Granular v1 - Tidal Cycles Translation
+-- by Spiegelkind @spiegelkindd
+-- October 19, 2025
+
+-- Establece el tempo (ciclos por segundo). 120 BPM / 60 = 2 CPS.
+setcps 2
+
+-- Define los parámetros de los efectos para un control más sencillo
+let revRoom = 0.8
+    revMix = 0.2 -- En Tidal, 'dry' es el inverso de 'mix'. 1 - 0.2 = 0.8
+    panRate = 0.25 -- Un valor bajo aquí da un paneo lento y suave
+
+-- El stack principal que genera el sonido
+d1 -- $ slow 8 $ palindrome 
+  -- $ fast 4 tarde
+  $ jux rev $ -- 'jux rev' duplica la señal, invirtiendo el estéreo para un efecto más amplio
+  every (choose [2,4,8,16]) (density (choose [1,2,4])) $ -- Combina subdivisiones rítmicas aleatorias
+  sound "file" -- Llama a tu muestra de audio
+  # begin rand -- Salta a una posición aleatoria (el "hot cue")
+  # speed (choose [0.5, 1, 2, 4]) -- Altera la velocidad de reproducción
+  # legato 1.5 -- Alarga las muestras para que se solapen, creando crossfades
+  # room revRoom -- Parámetro de la reverb: tamaño del cuarto
+  # size 0.9 -- Parámetro de la reverb: duración
+  # dry (1 - revMix) -- Parámetro de la reverb: mezcla (0 es todo reverb, 1 es todo seco)
+  # pan (slow panRate sine) -- Paneo estéreo aleatorio y suave
