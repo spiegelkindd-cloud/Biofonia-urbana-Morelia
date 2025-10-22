@@ -1,4 +1,4 @@
-// by Spiegelkind @spiegelkindd & Gemini Sonification AI
+// by Spiegelkind @spiegelkindd
 // APACHE License 2.0
 // "Continuum Granular" Script (v2 - Corregido y Robusto)
 // October 19, 2025
